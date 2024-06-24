@@ -1,3 +1,4 @@
+
 import pandas as pd
 
 def ratings_matrix_creator(dataframe):
@@ -6,9 +7,9 @@ def ratings_matrix_creator(dataframe):
 # Función para calcular la similitud de Pearson. 
 def pearson_similarity(ratings_matrix, item_variances): 
     similarity_matrix = ratings_matrix.T.corr(method='pearson')
-    # Ajustar la similitud por la varianza de los ítems
-    adjusted_similarity_matrix = similarity_matrix.apply(lambda x: x / item_variances, axis=1)
-    return adjusted_similarity_matrix
+    
+
+    return similarity_matrix
 
 # Selección de los k vecinos mas cercanoss
 def get_top_k_neighbors(similarity_matrix, user, k):
@@ -16,11 +17,11 @@ def get_top_k_neighbors(similarity_matrix, user, k):
     return similar_users
 
 def items_variances(ratings_matrix):
-    return ratings_matrix.var()
+    return ratings_matrix.var(axis=0, skipna=True)
 
 
 # Función para predecir la calificación de un ítem para un usuario con ajuste por varianza
-def predict_rating_with_variance_adjustment(user, item, k, similarity_matrix_var_adjusted, ratings_matrix ):
+def predict_rating(user, item, k, similarity_matrix_var_adjusted, ratings_matrix ):
 
     neighbors = get_top_k_neighbors(similarity_matrix_var_adjusted, user, k)
 
