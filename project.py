@@ -1,25 +1,32 @@
 import pandas as pd
+import utils
 
-from utils import ratings_matrix_creator
-from utils import items_variances
-from utils import pearson_similarity
-from utils import predict_rating
-from utils import get_top_k_neighbors 
+data = [
+        [5,3,4,4,None],
+        [3,1,2,3,3],
+        [4,3,4,3,5],
+        [3,3,1,5,4],
+        [1,5,5,2,1]
+]
+column=['Item1','Item2','Item3','Item4','Item5']
+rows=['Alice','Bob','Carol','Dave','Paul']
 
-data = {'user': ['Alice', 'Alice', 'Alice', 'Alice', 'Bob', 'Bob', 'Bob', 'Bob', 'Bob', 'Carol', 'Carol', 'Carol', 'Carol', 'Carol', 'Dave', 'Dave', 'Dave', 'Dave', 'Dave'],
-        'item': ['Item1', 'Item2', 'Item3', 'Item4', 'Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item1', 'Item2', 'Item3', 'Item4', 'Item5'],
-        'rating': [5, 3, 4, 4, 3, 1, 2, 3, 3, 4, 3, 4, 3, 5, 3, 3, 1, 5, 4]}
+data2 = [
+        [0,3,0,4,None],
+        [5,3,0,0,0],
+        [0,5,4,3,0],
+        [0,0,0,3,4],
+        [5,0,4,0,3]
+]
 
-ratings_df = pd.DataFrame(data)
+column2=['Item1','Item2','Item3','Item4','Item5']
+rows2=['User1','User2','User3','User4','User5']
+
+ratings_matrix = pd.DataFrame(data, columns=column, index=rows)
+
+print(ratings_matrix)
+
+pred = utils.get_potential_predictions('Alice', 5, 5, ratings_matrix)
+print(pred)
 
 
-ratings_matrix = ratings_matrix_creator(ratings_df)
-
-items_variancess = items_variances(ratings_matrix)
-
-similarity_matrix = pearson_similarity(ratings_matrix, items_variancess)
-
-
-predict_ratingv = predict_rating('Alice','Item5', 2 , similarity_matrix, ratings_matrix)
-
-print(predict_ratingv)
