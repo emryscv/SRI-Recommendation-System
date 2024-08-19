@@ -1,6 +1,7 @@
 import pandas as pd
 import utils
-import visual
+
+df = pd.read_csv('dataset/ratings_Electronics.csv')
 
 data = [
         [5,3,4,4,2],

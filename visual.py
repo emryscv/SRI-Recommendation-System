@@ -1,11 +1,15 @@
 import streamlit as st
+import utils
 
-
-items_list = ['item1', 'item2', 'item3', 'item4', 'item5']
 
 # Inicializar el estado de la sesión para las selecciones y valoraciones
 if 'user_ratings' not in st.session_state:
     st.session_state.user_ratings = {}
+
+if(not(utils.get_load_state)):
+    utils.load_dataset()
+
+items_list = utils.get_items()
 
 
 def get_recommendations(user_ratings):
@@ -36,7 +40,7 @@ for item in selected_items:
 if st.session_state.user_ratings:
     st.write("Items seleccionados y valoraciones:")
     for item in st.session_state.user_ratings:
-        st.session_state.user_ratings[item] = st.slider(f'Valoración para el item {item}', 0, 5, st.session_state.user_ratings[item])
+        st.session_state.user_ratings[item] = st.slider(f'Valoración para el item {item}', 1, 5, st.session_state.user_ratings[item])
 
 # Botón para obtener recomendaciones
 if st.button('Obtener Recomendaciones'):
@@ -44,5 +48,8 @@ if st.button('Obtener Recomendaciones'):
     st.write('Items recomendados:')
     for item, score in recommendations.items():
         st.write(f'Item: {item}, Puntuación: {score}')
+
+
+
 
 

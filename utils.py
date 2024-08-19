@@ -1,5 +1,27 @@
 
 import pandas as pd
+import math
+
+global dataset
+global loaded 
+loaded = False
+
+def load_dataset():
+    global dataset
+    global loaded
+    dataset = pd.read_csv('dataset/matrix.csv')
+    loaded = True
+    
+
+def get_items():
+    try:
+       x = dataset.columns
+    except :
+        return []
+    return list(dataset.columns)
+
+def get_load_state():
+    return loaded
 
 def ratings_matrix_creator(dataframe):
         return dataframe.pivot(index='user', columns='item', values='rating')
@@ -9,6 +31,38 @@ def pearson_similarity(ratings_matrix, item_variances):
     similarity_matrix = ratings_matrix.T.corr(method='pearson')
     
     return similarity_matrix
+
+# Función para caluclar la similitud de Pearson a mano.
+def pearson_similarity_long(rating_matrix):
+
+    ret = pd.DataFrame(columns=rating_matrix.index, index=rating_matrix.index)
+
+    for i in range(len(ret.index)):
+        for j in range(i, len(ret.index),1):
+
+            left = ret.index[i]
+            right = ret.index[j]
+            left_avg = rating_matrix.loc[left].mean()
+            right_avg = rating_matrix.loc[right].mean()
+            left_op_sum = 0
+            right_op_sum = 0
+            mult_sum = 0
+
+            for k in range(len(rating_matrix.columns)):
+                item = rating_matrix.columns[k]
+                left_op= rating_matrix[item][left] - left_avg
+                right_op= rating_matrix[item][right] - right_avg
+                left_op_sum += pow(left_op,2)
+                right_op_sum += pow(right_op,2)
+                mult_sum += left_op * right_op
+            value = mult_sum / (math.sqrt(left_op_sum) * math.sqrt(right_op_sum))
+            ret.loc[left, right] = value
+            ret.loc[right, left] = value
+
+        
+
+    return ret
+
 
 # Selección de los k vecinos mas cercanoss
 def get_top_k_neighbors(similarity_matrix, user, k):
@@ -20,13 +74,13 @@ def items_variances(ratings_matrix):
 
 
 # Función para predecir la calificación de un ítem para un usuario con ajuste por varianza
-def predict_rating(user, item, k, ratings_matrix ):
+def predict_rating(user, item, k, ratings_matrix, similarity_matrix_var_adjusted, neighbors, user_avg_rating):
 
-    similarity_matrix_var_adjusted = pearson_similarity(ratings_matrix, items_variances(ratings_matrix))
+    # similarity_matrix_var_adjusted = pearson_similarity(ratings_matrix, items_variances(ratings_matrix))
 
-    neighbors = get_top_k_neighbors(similarity_matrix_var_adjusted, user, k)
+    # neighbors = get_top_k_neighbors(similarity_matrix_var_adjusted, user, k)
 
-    user_avg_rating = ratings_matrix.loc[user].mean()
+    # user_avg_rating = ratings_matrix.loc[user].mean()
 
     weighted_sum = 0
     sim_sum = 0
@@ -83,12 +137,18 @@ def get_posible_items(user,rating_matrix,amount):
 
 def get_potential_predictions(user, neigbours_amount, items_amount, rating_matrix):
 
+    similarity_matrix = pearson_similarity(rating_matrix,5)
+
+    neigbours = get_top_k_neighbors(similarity_matrix,user,neigbours_amount)
+
+    user_avg_rating = rating_matrix.loc[user].mean()
+
     posible_items = get_posible_items(user, rating_matrix, items_amount)
 
     posible_items_rating = {}
 
     for item in posible_items:
-        posible_items_rating[item] = predict_rating(user, item, neigbours_amount, rating_matrix)
+        posible_items_rating[item] = predict_rating(user, item, neigbours_amount, rating_matrix, similarity_matrix, neigbours, user_avg_rating)
 
     return posible_items_rating
 
