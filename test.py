@@ -1,10 +1,12 @@
 import pandas as pd
 import utils
+import item_based_recomendation as ibr
+import basic_recomendation as br
 
 df = pd.read_csv('dataset/ratings_Electronics.csv')
 
 data = [
-        [5,3,4,4,2],
+        [5,3,4,4,0],
         [3,1,2,3,3],
         [4,3,4,3,5],
         [3,3,1,5,4],
@@ -27,10 +29,22 @@ rows2=['User1','User2','User3','User4','User5']
 ratings_matrix = pd.DataFrame(data, columns=column, index=rows)
 
 
-
-print(ratings_matrix)
-
 pred = utils.get_potential_predictions('Alice', 5, 5, ratings_matrix)
 print(pred)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
