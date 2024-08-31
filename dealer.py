@@ -40,6 +40,9 @@ def get_categories():
 
     return x
 
+def get_max_price():
+    return max(products["Price"])
+    
 def get_load_state():
     return loaded
 
@@ -121,6 +124,8 @@ def get_potential_predictions(user):
     return posible_items_rating
 
 def get_recommendation(filter, ratings):
+    print(filter)
+    print(ratings)
     return []
 
         
