@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 import math
 
-global matrix 
-global mean_adj_matrix
-global similarity_matrix
+matrix = None
+mean_adj_matrix = None
+similarity_matrix = None
 
 def get_sim_matrix():
     return similarity_matrix
@@ -48,6 +48,9 @@ def sim(a,b):
             right += math.pow(row[b],2)
             num += row[a]*row[b]
 
+    if (left == 0 or right == 0):
+        return 0 
+    
     return num/(math.sqrt(left)*math.sqrt(right))
 
 def sim_matrix():

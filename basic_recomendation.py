@@ -2,8 +2,8 @@ import pandas as pd
 import math
 import numpy as np
 
-global matrix
-global similarity_matrix
+matrix = None
+similarity_matrix = None
 
 
 

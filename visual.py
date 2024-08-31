@@ -1,15 +1,15 @@
 import streamlit as st
-import utils
+import dealer
 
 
 # Inicializar el estado de la sesión para las selecciones y valoraciones
 if 'user_ratings' not in st.session_state:
     st.session_state.user_ratings = {}
 
-if(not(utils.get_load_state)):
-    utils.load_dataset()
+if(not(dealer.get_load_state)):
+    dealer.load_dataset()
 
-items_list = utils.get_items()
+items_list = dealer.get_items()
 
 
 def get_recommendations(user_ratings):
