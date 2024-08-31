@@ -5,8 +5,6 @@ import numpy as np
 matrix = None
 similarity_matrix = None
 
-
-
 def load_matrix(data):
     global matrix
     global similarity_matrix
@@ -15,7 +13,6 @@ def load_matrix(data):
     pearson_similarity()
 
 def pearson_similarity():
-
     global similarity_matrix
 
     ret = pd.DataFrame(columns=matrix.index, index=matrix.index,dtype=float)
@@ -51,7 +48,6 @@ def get_top_k_neighbors(user, k):
     return similar_users
 
 def predict_rating(user, item, k):
-
     weighted_sum = 0
     sim_sum = 0
     neighbors = get_top_k_neighbors(user,k)

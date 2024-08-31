@@ -9,7 +9,6 @@ items_amount = 10
 neigbours_amount = 10
 item_based=True
 
-
 def load_dataset():
     global dataset
     global loaded
@@ -28,7 +27,6 @@ def get_items():
         x.append(products.loc[i])
 
     return x
-
 
 def get_categories():
     if(not loaded):
@@ -60,7 +58,6 @@ def change_coll_methof():
 ##### Método del Grafo #####
 
 def get_liked_items(user):
-
     global dataset
     liked_items = []
 
@@ -83,7 +80,6 @@ def get_related_users(liked_items, user):
     return related_users
 
 def get_posible_items(user,amount):
-
     global dataset
     liked_items = get_liked_items(user)
     related_users = get_related_users(liked_items,user)
@@ -124,6 +120,7 @@ def get_potential_predictions(user):
 
     return posible_items_rating
 
-
+def get_recommendation(filter, ratings):
+    return []
 
         
