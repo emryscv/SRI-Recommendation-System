@@ -99,9 +99,12 @@ for item in items_to_delete:
         selected_items.remove(item)
 # Botón para obtener recomendaciones
 if st.button("Obtener Recomendaciones"):
-    recommendations = dealer.get_recomendations(
-        filtered_categories, st.session_state.user_ratings
-    )
-    st.write("Items recomendados:")
-    for item, score in recommendations.items():
-        st.write(f"Item: {item}, Puntuación: {score}")
+    if len(st.session_state.user_ratings) == 0:
+        st.write("Selecciona algun elemento")
+    else:
+        recommendations = dealer.get_recomendations(
+            filtered_categories, st.session_state.user_ratings
+        )
+        st.write("Items recomendados:")
+        for item, score in recommendations.items():
+            st.write(f"Item: {item}, Puntuación: {score}")
