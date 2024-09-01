@@ -11,7 +11,6 @@ items_amount = 5
 neigbours_amount = 5
 item_based=True
 
-
 def load_dataset():
     global dataset
     global loaded
@@ -31,7 +30,6 @@ def get_items():
 
     return x
 
-
 def get_categories():
     if(not loaded):
         load_dataset()
@@ -44,6 +42,9 @@ def get_categories():
 
     return x
 
+def get_max_price():
+    return max(products["Price"])
+    
 def get_load_state():
     return loaded
 
@@ -78,6 +79,7 @@ def get_recomendations(filters:dict, items:dict):
 
 def get_liked_items(user):
 
+    
     liked_items = []
 
     matrix = user
@@ -100,7 +102,7 @@ def get_related_users(liked_items):
     
     return related_users
 
-def get_posible_items(user):
+def get_posible_items(user,amount):
 
     global dataset
     liked_items = get_liked_items(user)
@@ -164,3 +166,4 @@ def compute_predictions(user, filtered_items):
 
 
 
+        
