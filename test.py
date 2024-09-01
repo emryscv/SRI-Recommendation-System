@@ -31,15 +31,15 @@ import statistics
 
 ##### TEST #####
 
-dealer.load_dataset()
+# dealer.load_dataset()
 
-inicio = time.time()
-x = dealer.get_potential_predictions(1)
-final = time.time()
+# inicio = time.time()
+# x = dealer.compute_predictions(1)
+# final = time.time()
 
-print(x)
+# print(x)
 
-print(f"done in {final-inicio}")
+# print(f"done in {final-inicio}")
 
 
 ##### OTHER TEST #####
@@ -77,6 +77,50 @@ print(f"done in {final-inicio}")
 
 # print()
 
+df = pd.read_json('dataset/Products.json')
+
+filtro_name = df['Product Name'] == 'Shoes'
+filtro_brand = df['Brand'] == 'Adidas'
+filtro_cat = df['Category'] == "Men's Fashion"
+filtro_color = df['Color'] == 'Black'
+filtro_size = df['Size'] == 'L'
+filtro_price = df['Price'] <= 50
+
+df = df[filtro_name]
+df = df[filtro_brand]
+df = df[filtro_cat]
+df = df[filtro_color]
+#df = df[filtro_size]
+#df = df[filtro_size]
+
+print(df)
+
+dealer.load_dataset()
+
+filter ={
+    'Product Name' : ['Shoes'],
+    'Brand' : ['Adidas'],
+    'Category' : ["Men's Fashion"],
+    'Color' : ['Black'],
+    'Size' : None,
+    'Price' : None
+}
+
+user = {
+    1 : 5,
+    2 : 3,
+    4 : 2,
+    10 : 1,
+    24 : 4,
+    55 : 5,
+    178 : 2
+    
+}
+x = time.time()
+print((dealer.get_recomendations(filter, user)))
+y = time.time()
+
+print(y-x)
 
 
 

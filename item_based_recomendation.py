@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import math
+import statistics
 
 matrix = None
 mean_adj_matrix = None
@@ -89,3 +90,22 @@ def pred(u,p):
     med = rowm.replace(0, np.nan).mean()
 
     return med+(num/den)
+
+def pred2(u:dict,p):
+
+    mean = statistics.mean(list(u.values()))
+    row = u.copy()
+    for key, value in row.items():
+        value = value - mean
+    sim = similarity_matrix.loc[p]
+    
+    num = 0
+    den = 0
+
+    for key, value in row.items():
+        if key != p and value > 0:
+         num = num + (sim[key]*value)
+         den = den + sim[key]
+
+
+    return mean+(num/den)
