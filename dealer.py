@@ -126,6 +126,4 @@ def get_potential_predictions(user):
 def get_recommendation(filter, ratings):
     print(filter)
     print(ratings)
-    return []
-
-        
+    return {}        

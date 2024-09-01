@@ -1,11 +1,6 @@
 import streamlit as st
 import dealer
 
-
-def get_recommendation():
-    return dealer.get_recommendation(filtered_categories, {})
-
-
 def find(term, item):
     term = term.lower()
     return (
@@ -84,7 +79,7 @@ if st.session_state.user_ratings:
 
 # Botón para obtener recomendaciones
 if st.button("Obtener Recomendaciones"):
-    recommendations = get_recommendations(st.session_state.user_ratings)
+    recommendations = dealer.get_recommendation(filtered_categories, selected_items)
     st.write("Items recomendados:")
     for item, score in recommendations.items():
         st.write(f"Item: {item}, Puntuación: {score}")
