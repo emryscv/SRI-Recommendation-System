@@ -51,7 +51,8 @@ for id, (cat, values) in enumerate(categories.items()):
     else:
         filtered_categories[cat] = col2.multiselect(cat, values)
 
-colL.slider("Precio maximo", 0, dealer.get_max_price(), 60)
+max_price = colL.slider("Precio maximo", 0, dealer.get_max_price(), 60)
+filtered_categories["Price"] = max_price
 
 colR.write()
 
