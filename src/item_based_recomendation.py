@@ -90,7 +90,7 @@ def pred2(u:dict,p):
     mean = statistics.mean(list(u.values()))
     row = u.copy()
     for key, value in row.items():
-        value = value - mean
+        row[key] = value - mean
     sim = similarity_matrix.loc[p]
     
     num = 0
@@ -98,7 +98,7 @@ def pred2(u:dict,p):
 
     for key, value in row.items():
         if key != p and value > 0:
-         num = num + (sim[key]*value)
+         num = num + (sim[key]*u[key])
          den = den + sim[key]
 
 
