@@ -84,7 +84,7 @@ if st.session_state.user_ratings:
 
 # Botón para obtener recomendaciones
 if st.button("Obtener Recomendaciones"):
-    recommendations = get_recommendations(st.session_state.user_ratings)
+    recommendations = get_recommendation(st.session_state.user_ratings)
     st.write("Items recomendados:")
     for item, score in recommendations.items():
         st.write(f"Item: {item}, Puntuación: {score}")
