@@ -120,9 +120,9 @@ def get_potential_predictions(user):
     posible_items_rating = {}
 
     for item in posible_items:
-        posible_items_rating[item] = pred(user, item, neigbours_amount)
+        posible_items_rating[item] = pred(user, item)
 
-    return posible_items_rating
+    return dict(sorted(posible_items_rating.items(), key=lambda item: item[1], reverse=True))
 
 
 

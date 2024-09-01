@@ -14,12 +14,11 @@ def get_mean_adj_matrix():
 
 def load_matrix(data):
     global matrix 
-    global mean_adj_matrix
     global similarity_matrix
 
     matrix = data
     mean_adj_matrix_load()
-    sim_matrix()
+    similarity_matrix = pd.read_json('dataset/IB_sim_matrix.json')
 
 def mean_adj_matrix_load():
 
@@ -74,18 +73,19 @@ def top_k_items(item, k):
         
 
 
-def pred(u,p,k):
-
-    items = top_k_items(p,k) 
-
-    row = matrix.loc[u]
+def pred(u,p):
+   
+    row = mean_adj_matrix.loc[u]
+    sim = similarity_matrix.loc[p]
+    rowm = matrix.loc[u]
     
     num = 0
     den = 0
-    for item in items:
+    for item in matrix.columns:
         if item != p and row[item] > 0:
-         value = similarity_matrix.loc[item,p]
-         num += value*row[item]
-         den += value
+         num = num + (sim[item]*row[item])
+         den = den + sim[item]
 
-    return row.replace(0, np.nan).mean()+(num/den)
+    med = rowm.replace(0, np.nan).mean()
+
+    return med+(num/den)

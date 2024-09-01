@@ -3,6 +3,8 @@ import dealer
 import item_based_recomendation as ibr
 import basic_recomendation as br
 import time
+import numpy as np
+import statistics
 
 # data = [
 #         [5,3,4,4,0],
@@ -29,11 +31,52 @@ import time
 
 ##### TEST #####
 
-df = pd.read_json('dataset/Ratings.json')
+dealer.load_dataset()
 
 inicio = time.time()
-ibr.load_matrix(df)
+x = dealer.get_potential_predictions(1)
 final = time.time()
 
+print(x)
+
 print(f"done in {final-inicio}")
+
+
+##### OTHER TEST #####
+
+# df = pd.read_json('dataset/Ratings.json')
+
+
+# ibr.load_matrix(df)
+
+# x = ibr.get_sim_matrix()
+
+# y = (x.loc[2])
+
+# row = ibr.get_mean_adj_matrix()
+
+# row = (row.loc[1])
+
+# rowm = df.loc[1]
+
+# num = 0
+# den = 0
+
+
+
+# for i in range(1,1001):
+    
+#     if((row[i]>0) and (i != 14)):
+#         num = num + (y[i]*row[i])
+#         den = den + y[i]
+
+# media = rowm.replace(0, np.nan).mean()
+
+
+# print(media+(num/den))
+
+# print()
+
+
+
 
