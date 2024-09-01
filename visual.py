@@ -1,6 +1,9 @@
 import streamlit as st
 import dealer
 
+def delete(item):
+    st.session_state.user_ratings.pop(item)
+
 def find(term, item):
     term = term.lower()
     return (
@@ -77,10 +80,11 @@ if st.session_state.user_ratings:
         st.session_state.user_ratings[item] = colR.slider(
             f"Item: {item}", 1, 5, st.session_state.user_ratings[item]
         )
+        
 
 # Botón para obtener recomendaciones
 if st.button("Obtener Recomendaciones"):
-    recommendations = dealer.get_recommendation(filtered_categories, selected_items)
+    recommendations = dealer.get_recommendation(filtered_categories, st.session_state.user_ratings)
     st.write("Items recomendados:")
     for item, score in recommendations.items():
         st.write(f"Item: {item}, Puntuación: {score}")
