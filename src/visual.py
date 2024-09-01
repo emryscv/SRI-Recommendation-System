@@ -84,7 +84,7 @@ if st.session_state.user_ratings:
 
 # Botón para obtener recomendaciones
 if st.button("Obtener Recomendaciones"):
-    recommendations = dealer.get_recommendation(filtered_categories, st.session_state.user_ratings)
+    recommendations = dealer.get_recomendations(filtered_categories, st.session_state.user_ratings)
     st.write("Items recomendados:")
     for item, score in recommendations.items():
         st.write(f"Item: {item}, Puntuación: {score}")

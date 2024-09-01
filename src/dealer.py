@@ -11,12 +11,13 @@ items_amount = 5
 neigbours_amount = 5
 item_based=True
 
+
 def load_dataset():
     global dataset
     global loaded
     global products
-    dataset = pd.read_json('dataset/Ratings.json')
-    products = pd.read_json('dataset/Products.json')
+    dataset = pd.read_json('src/dataset/Ratings.json')
+    products = pd.read_json('src/dataset/Products.json')
     loaded = True
     
 def get_items():
@@ -29,6 +30,7 @@ def get_items():
         x.append(products.loc[i])
 
     return x
+
 
 def get_categories():
     if(not loaded):
@@ -61,6 +63,14 @@ def change_coll_methof():
     item_based = not item_based
 
 def get_recomendations(filters:dict, items:dict):
+
+    aux = {}
+    for key, value in items.items():
+        i = int(key.split(",")[0])
+        aux[i] = value
+
+    items = aux
+
     
     for key, value in filters.items():
         if(key == 'Price'):
@@ -79,7 +89,6 @@ def get_recomendations(filters:dict, items:dict):
 
 def get_liked_items(user):
 
-    
     liked_items = []
 
     matrix = user
@@ -102,7 +111,7 @@ def get_related_users(liked_items):
     
     return related_users
 
-def get_posible_items(user,amount):
+def get_posible_items(user):
 
     global dataset
     liked_items = get_liked_items(user)
@@ -154,6 +163,8 @@ def compute_predictions(user, filtered_items):
                 work_items.append(aux)
         filtered_items = work_items
 
+    if(len(filtered_items)==0):
+        filtered_items = random.sample(get_posible_items(user),items_amount)
 
 
     posible_items_rating = {}
@@ -166,4 +177,3 @@ def compute_predictions(user, filtered_items):
 
 
 
-        

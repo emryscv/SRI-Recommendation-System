@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_json('dataset/Products.json')
+df = pd.read_json('src/dataset/Products.json')
 
 
 filters = {
@@ -14,7 +14,7 @@ filters = {
 
 def set_eq_filter(list,property):
     global filters
-    if(list != None):
+    if(list != None and len(list)>0):
         filter_cond = (df[property] == list[0])
         if(len(list)>1):
             for x in range(1,len(list)):

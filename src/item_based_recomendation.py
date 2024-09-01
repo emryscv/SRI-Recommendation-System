@@ -19,7 +19,7 @@ def load_matrix(data):
 
     matrix = data
     mean_adj_matrix_load()
-    similarity_matrix = pd.read_json('dataset/IB_sim_matrix.json')
+    similarity_matrix = pd.read_json('src/dataset/IB_sim_matrix.json')
 
 def mean_adj_matrix_load():
     global mean_adj_matrix
