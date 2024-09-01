@@ -123,7 +123,13 @@ def get_potential_predictions(user):
 
     return posible_items_rating
 
-def get_recommendation(filter, ratings):
+def get_recommendation(filter, ratings:dict):
+    aux = {}
+    
+    for key, value in ratings.items():
+        i = int(key.split(",")[0])
+        aux[i] = value
+
     print(filter)
-    print(ratings)
+    print(aux)
     return {}        
