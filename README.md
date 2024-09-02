@@ -18,7 +18,7 @@ Para ejecutar el proyecto es necesario tener instalado **Python 3.12.4** además
 - Numpy
 - entre otras
 
-La lista apliada de las bibliotecas necesarias se encuentra en el fichero `requirements.txt` en la raiz del repositorio
+La lista apliada de las bibliotecas necesarias se encuentra en el fichero `requirements.txt` en la raíz del repositorio
 
 ## Instrucciones de Ejecución:
 
