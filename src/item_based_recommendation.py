@@ -156,8 +156,9 @@ def pred2(u:dict,p):
 
     for key, value in row.items():
         if key != p and value > 0:
-         num = num + (sim[key]*u[key])
+         num = num + (sim[key]*value)
          den = den + sim[key]
 
-
-    return mean+(num/den)
+    value = max(1, min((mean+(num/den)), 5))
+    
+    return value
